@@ -1,42 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>U4EVER</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>U4EVER — Coming Soon</title>
+
+  <!-- SEO / Social -->
+  <meta name="description" content="In the end, all that’s left are stories. We make sure they last forever." />
+  <meta property="og:title" content="U4EVER — Coming Soon" />
+  <meta property="og:description" content="In the end, all that’s left are stories. We make sure they last forever." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.u4ever.com/" />
+  <meta property="og:image" content="https://www.u4ever.com/og-image.png" /> <!-- Optional: add later -->
+  <link rel="icon" href="/favicon.ico" />
+
   <style>
+    :root{
+      /* Brand tweaks here */
+      --bg-1: #2a1a49;   /* deep indigo */
+      --bg-2: #0e224a;   /* deep blue */
+      --bg-3: #6b3fa0;   /* violet accent */
+      --text: #f7f7fb;
+      --muted: #cfd2e6;
+      --accent: #e7c265; /* soft gold, matches your logo vibe */
+      --card: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.18);
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --radius: 24px;
+    }
+
+    /* Reset & base */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
     body {
-      background-color: #fff8ef;
-      font-family: Georgia, serif;
-      text-align: center;
-      padding: 40px;
+      margin: 0;
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      letter-spacing: .2px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(1200px 800px at 20% 10%, var(--bg-3) 0%, transparent 40%),
+                  radial-gradient(1000px 700px at 80% 90%, #3357a4 0%, transparent 45%),
+                  linear-gradient(135deg, var(--bg-1), var(--bg-2));
+      background-attachment: fixed;
+      animation: bgShift 18s ease-in-out infinite alternate;
     }
-    img {
-      max-width: 80%;
-      height: auto;
-      margin-top: 20px;
+
+    @keyframes bgShift {
+      0%   { background-position: 0% 0%, 100% 100%, 0 0; }
+      100% { background-position: 10% 5%, 90% 95%, 0 0; }
     }
-    p {
-      font-size: 1.25rem;
-      color: #3b2b2b;
+
+    .wrap {
+      width: min(900px, 92vw);
+      padding: clamp(20px, 4vw, 40px);
     }
+
+    .card {
+      position: relative;
+      padding: clamp(28px, 5vw, 56px);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: saturate(140%) blur(14px);
+      -webkit-backdrop-filter: saturate(140%) blur(14px);
+      overflow: hidden;
+    }
+
+    /* Subtle decorative glow */
+    .card::after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: conic-gradient(from 180deg at 50% 50%, rgba(231,194,101,.12), transparent 15%, rgba(231,194,101,.12) 30%, transparent 60%);
+      filter: blur(18px); opacity:.4; pointer-events:none;
+    }
+
+    header {
+      display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+      margin-bottom: clamp(8px, 2vw, 10px);
+    }
+
+    .logo {
+      width: 56px; height: 56px; border-radius:14px;
+      display:grid; place-items:center; border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float { 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-6px) } }
+
+    /* Minimal book “∞” mark in pure CSS/SVG */
+    .mark {
+      width: 28px; height: 28px;
+      display:block;
+      background:
+        radial-gradient(circle at 35% 50%, var(--accent) 0 3px, transparent 3px),
+        radial-gradient(circle at 65% 50%, var(--accent) 0 3px, transparent 3px);
+      mask:
+        radial-gradient(closest-side, #000 98%, transparent 100%) left 32% center / 50% 100% no-repeat,
+        radial-gradient(closest-side, #000 98%, transparent 100%) right 32% center / 50% 100% no-repeat;
+    }
+
+    h1 {
+      margin:0;
+      font-size: clamp(28px, 6vw, 44px);
+      line-height: 1.1;
+      letter-spacing:.3px;
+    }
+
     .tagline {
-      font-style: italic;
-      margin-top: 30px;
-      line-height: 1.6;
+      margin-top: 10px;
+      font-size: clamp(16px, 2.4vw, 20px);
+      color: var(--muted);
+      min-height: 1.4em;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid rgba(255,255,255,.45);
+      width: 0;
+      animation: typing 4s steps(40,end) 0.6s forwards, caret 900ms steps(1) infinite;
     }
-    footer {
-      margin-top: 40px;
-      font-size: 1rem;
-      color: #555;
+    @keyframes typing { to { width: 100%; } }
+    @keyframes caret { 50% { border-color: transparent; } }
+
+    .cta-row {
+      display:flex; flex-wrap:wrap; gap:12px;
+      margin-top: clamp(18px, 3vw, 28px);
+    }
+
+    .btn {
+      --btn-bg: #ffffff14;
+      --btn-brd: #ffffff30;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--btn-brd);
+      background: var(--btn-bg);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing:.2px;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+      display:inline-flex; align-items:center; gap:10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.2);
+    }
+    .btn:hover { transform: translateY(-1px); border-color: #ffffff66; }
+    .btn.primary {
+      --btn-bg: linear-gradient(180deg, #f3d991, #e7c265);
+      --btn-brd: #e7c265;
+      color: #3c2f09;
+      box-shadow: 0 10px 22px rgba(231,194,101,.35);
+    }
+    .btn.ghost { opacity:.9; }
+
+    .meta {
+      margin-top: clamp(16px, 2.6vw, 22px);
+      font-size: 14px; color: var(--muted);
+    }
+
+    footer{
+      margin-top: clamp(22px, 3.4vw, 32px);
+      display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
+      border-top:1px dashed rgba(255,255,255,.22);
+      padding-top: 14px;
+      font-size: 13px; color: #d7d9eb;
+      opacity:.9;
+    }
+    .tiny { opacity:.8; }
+
+    /* Accessibility prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce){
+      body, .logo, .tagline{ animation: none !important; }
     }
   </style>
 </head>
 <body>
-  <img src="u4ever_logo.jpg" alt="U4EVER Logo" />
-   </div>
-  <footer>
-    Full website coming soon.
-  </footer>
+  <main class="wrap">
+    <section class="card" aria-label="Coming soon">
+      <header>
+        <div class="logo" aria-hidden="true"><span class="mark"></span></div>
+        <div>
+          <h1>U4EVER</h1>
+          <div class="tagline" id="tagline">In the end, all that’s left are stories. We make sure they last forever.</div>
+        </div>
+      </header>
+
+      <div class="cta-row">
+        <!-- Change email to your preferred address -->
+        <a class="btn primary" href="mailto:admin@u4ever.com?subject=U4EVER%20Notify%20Me&body=Hi%20U4EVER%20team%2C%20please%20let%20me%20know%20when%20the%20beta%20is%20ready!">
+          Notify me at launch
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M22 12H2"/><path d="M15 5l7 7-7 7"/></svg>
+        </a>
+        <a class="btn ghost" href="https://github.com/sjj710/u4ever" target="_blank" rel="noopener">Follow the build on GitHub</a>
+      </div>
+
+      <p class="meta">
+        Building something worthy of forever. StoryGuide™ &nbsp;•&nbsp; LegacyLock™ &nbsp;•&nbsp; The U4EVER Platform
+      </p>
+
+      <footer>
+        <span class="tiny">© <span id="year"></span> U4EVER</span>
+        <span class="tiny">Secure by design • On-chain • Off-cloud</span>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    // Set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // OPTIONAL: rotate subtle phrases after typing finishes
+    const phrases = [
+      "In the end, all that’s left are stories. We make sure they last forever.",
+      "Your stories, sealed forever. On-chain. Off-cloud. Beyond time.",
+      "Simple to start. Impossible to forget."
+    ];
+
+    const tagline = document.getElementById('tagline');
+    let idx = 0;
+
+    function rotateTagline(){
+      idx = (idx + 1) % phrases.length;
+      // fade out → change → type effect re-run
+      tagline.style.transition = 'opacity .3s ease';
+      tagline.style.opacity = 0;
+      setTimeout(()=>{
+        tagline.textContent = phrases[idx];
+        // retrigger CSS typing by cloning node
+        const clone = tagline.cloneNode(true);
+        tagline.parentNode.replaceChild(clone, tagline);
+        clone.style.opacity = 1;
+        clone.id = 'tagline';
+        setTimeout(()=>{ tagline = document.getElementById('tagline'); }, 0);
+      }, 300);
+    }
+
+    // Start rotating after initial typing completes
+    setTimeout(()=> { setInterval(rotateTagline, 7000); }, 4600);
+  </script>
 </body>
 </html>
