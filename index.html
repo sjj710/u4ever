@@ -5,215 +5,171 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>U4EVER — True • You • Forever</title>
 
-  <!-- SEO / Social -->
-  <meta name="description" content="True • You • Forever. In the end, all that’s left are stories. We make sure they last forever." />
-  <meta property="og:title" content="U4EVER — Coming Soon" />
-  <meta property="og:description" content="In the end, all that’s left are stories. We make sure they last forever." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.u4ever.com/" />
-  <meta property="og:image" content="https://www.u4ever.com/assets/og-image.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="/favicon.ico" />
+  <meta name="description" content="True • You • Forever. In the end, all that’s left are stories. We make sure they last forever.">
+  <meta property="og:title" content="U4EVER — Coming Soon">
+  <meta property="og:description" content="In the end, all that’s left are stories. We make sure they last forever.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.u4ever.com/">
+  <meta property="og:image" content="https://www.u4ever.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.ico">
 
-  <!-- Preload (safe if missing) -->
-  <link rel="preload" as="image" href="/assets/chain.png">
+  <!-- Preload exact filenames from your /assets -->
+  <link rel="preload" as="image" href="/assets/Chain.png">
   <link rel="preload" as="font" href="/assets/CinzelDecorative-Regular.ttf" type="font/ttf" crossorigin>
   <link rel="preload" as="font" href="/assets/DancingScript-Regular.ttf" type="font/ttf" crossorigin>
 
   <style>
     :root{
-      /* Brand palette */
-      --navy:#0f2442;
-      --navy-2:#18365f;
-      --blue:#7fb0df;        /* accent for the “4” + quill */
-      --muted:#cfd2e6;
-      --text:#f7f7fb;
-      --accent:#e7c265;
-
-      /* Card + layout */
-      --card:rgba(255,255,255,.08);
-      --border:rgba(255,255,255,.18);
-      --shadow:0 20px 60px rgba(0,0,0,.35);
-      --radius:28px;
-      --maxw:980px;
-
-      /* Chain and decorative lines */
-      --chain-h:12px;
-
-      /* Easy tweaks */
-      --title-size: clamp(38px, 7.6vw, 64px);
+      --text:#f7f7fb; --muted:#cfd2e6; --accent:#e7c265; --blue:#7fb0df;
+      --card:rgba(255,255,255,.08); --border:rgba(255,255,255,.18);
+      --shadow:0 24px 80px rgba(0,0,0,.35); --radius:28px; --maxw:980px;
+      --title-size: clamp(40px, 7.4vw, 64px);
       --script-size: clamp(18px, 3.6vw, 28px);
+      --chain-h: 12px;              /* change if Chain.png height differs */
+      --tile-bg:#F5E7D3;            /* light tan tile */
+      --tile-rim:rgba(216,179,112,.32);
+      --tile-edge:rgba(90,70,40,.18);
     }
 
-    /* Title font (display) */
     @font-face{
-      font-family: "U4EVER Display";
-      src: url("/assets/CinzelDecorative-Regular.ttf") format("truetype");
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
+      font-family:"U4EVER Display";
+      src:url("/assets/CinzelDecorative-Regular.ttf") format("truetype");
+      font-weight:400; font-style:normal; font-display:swap;
     }
-    /* Script tagline font */
     @font-face{
-      font-family: "U4EVER Script";
-      src: url("/assets/DancingScript-Regular.ttf") format("truetype");
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
+      font-family:"U4EVER Script";
+      src:url("/assets/DancingScript-Regular.ttf") format("truetype");
+      font-weight:400; font-style:normal; font-display:swap;
     }
 
     *{box-sizing:border-box} html,body{height:100%}
     body{
       margin:0; color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
       display:grid; place-items:center;
-
-      /* Calm sky/sunset wallpaper */
       background:
         radial-gradient(1200px 800px at 20% 12%, rgba(255,170,120,.35), transparent 45%),
         radial-gradient(1100px 700px at 78% 88%, rgba(134,93,210,.26), transparent 48%),
         radial-gradient(900px 600px at 50% 50%, rgba(255,200,160,.18), transparent 60%),
-        linear-gradient(180deg, #1f2250 0%, #2a3c76 30%, #3f5fa6 55%, #6f86d6 70%, #f3a7b3 87%, #f6c59a 100%);
-      background-attachment: fixed;
+        linear-gradient(180deg,#1f2250 0%,#2a3c76 30%,#3f5fa6 55%,#6f86d6 70%,#f3a7b3 87%,#f6c59a 100%);
+      background-attachment:fixed;
       animation:bgShift 22s ease-in-out infinite alternate;
     }
-    @keyframes bgShift{
-      0%{ background-position: 0% 0%, 100% 100%, 50% 50%, 0 0 }
-      100%{ background-position: 10% 6%, 92% 94%, 48% 52%, 0 0 }
-    }
+    @keyframes bgShift{0%{background-position:0% 0%,100% 100%,50% 50%,0 0}100%{background-position:10% 6%,92% 94%,48% 52%,0 0}}
 
     .wrap{width:min(var(--maxw),92vw); padding:clamp(16px,3vw,24px)}
     .card{
-      position:relative;
-      padding:clamp(28px,5vw,58px);
+      position:relative; padding:clamp(28px,5vw,58px);
       background:var(--card); border:1px solid var(--border);
       border-radius:var(--radius); box-shadow:var(--shadow);
       backdrop-filter:saturate(140%) blur(14px); -webkit-backdrop-filter:saturate(140%) blur(14px);
-      overflow:hidden;
     }
 
-    /* Book mark above the title */
-    .bookWrap{ display:grid; place-items:center; margin-bottom:12px }
-    #bookLogo{ width:108px; height:auto; display:none; filter:drop-shadow(0 6px 18px rgba(0,0,0,.28)); }
-    .bookFallback{
-      width:44px;height:44px;display:block;
-      background:
-        radial-gradient(circle at 35% 50%, var(--accent) 0 6px, transparent 6px),
-        radial-gradient(circle at 65% 50%, var(--accent) 0 6px, transparent 6px);
-      mask:
-        radial-gradient(closest-side,#000 98%,transparent 100%) left 30% center/50% 100% no-repeat,
-        radial-gradient(closest-side,#000 98%,transparent 100%) right 30% center/50% 100% no-repeat;
-      filter:drop-shadow(0 6px 18px rgba(0,0,0,.28));
+    /* Book tile above title */
+    .bookWrap{display:grid; place-items:center; margin-bottom:8px}
+    .tile{
+      width:90px;height:90px;border-radius:22px;background:var(--tile-bg);
+      border:1px solid var(--tile-edge); box-shadow:0 12px 28px rgba(0,0,0,.28), inset 0 0 0 1px rgba(255,255,255,.7);
+      display:grid;place-items:center;position:relative;animation:float 6s ease-in-out infinite;
     }
+    .tile::after{content:"";position:absolute;inset:0;border-radius:22px;box-shadow:0 0 0 1.5px var(--tile-rim)}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
-    /* Brand lockup */
-    .brand{ text-align:center }
+    .bookImg{width:72px;height:auto;display:none;filter:drop-shadow(0 4px 10px rgba(0,0,0,.22))}
+    .bookFallback{display:block}
+    .bookFallback svg{width:36px;height:36px;display:block;filter:drop-shadow(0 4px 10px rgba(0,0,0,.22))}
+
+    .brand{text-align:center}
     .title{
-      margin:0;
-      font-family:"U4EVER Display", ui-serif, Georgia, "Times New Roman", serif;
-      font-weight:400; letter-spacing:.6px;
-      font-size:var(--title-size); line-height:1.02;
-      color:#f5f7ff; text-shadow:0 1px 0 rgba(255,255,255,.06);
+      margin:10px 0 0;font-family:"U4EVER Display",ui-serif,Georgia,"Times New Roman",serif;
+      font-weight:400;letter-spacing:.6px;font-size:var(--title-size);line-height:1.02;color:#f5f7ff;
+      text-shadow:0 1px 0 rgba(255,255,255,.06);
     }
-    .title .four{ color:var(--blue) }
-    .subbrand{
-      margin-top:2px; font-size:clamp(12px,2.6vw,14px); letter-spacing:.18em; opacity:.92
-    }
+    .title .four{color:var(--blue)}
+    .subbrand{margin-top:6px;font-size:clamp(12px,2.6vw,14px);letter-spacing:.18em;opacity:.92}
 
-    /* Chain separators */
     .chainline{
-      width:100%; height:var(--chain-h);
-      background:url('/assets/chain.png') repeat-x center/auto 100%;
-      opacity:.95; margin:14px 0;
-      border-radius:8px;
+      width:100%;height:var(--chain-h);margin:16px 0 10px;
+      background:url("/assets/Chain.png") repeat-x center/auto 100%;
+      opacity:.95;border-radius:8px;
     }
-    .chainline.fallback{ display:none } /* turned on by JS if needed */
+    .chainline.fallback{
+      background:repeating-linear-gradient(90deg, rgba(255,255,255,.9) 0 8px, rgba(255,255,255,0) 8px 16px);
+      opacity:.7;
+    }
 
-    /* Tagline line with quill on the right */
-    .tagRow{
-      display:grid; grid-template-columns: 1fr auto; align-items:center; gap:12px;
-      margin:6px 0 8px 0;
-    }
+    .tagRow{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px}
     .tagline{
-      margin:0; color:#e5e8fb; opacity:.98; letter-spacing:.4px;
-      font-family:"U4EVER Script", "Segoe UI", cursive;
-      font-size:var(--script-size); line-height:1.35; text-align:center;
+      margin:0;color:#e5e8fb;opacity:.98;letter-spacing:.4px;
+      font-family:"U4EVER Script","Segoe UI",cursive;
+      font-size:var(--script-size);line-height:1.35;text-align:center;
     }
+    .quillImg{width:38px;height:auto;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25))}
 
-    /* Quill (inline SVG) */
-    .quill{ width:38px; height:38px; }
-    .quill path{ fill:var(--blue); filter:drop-shadow(0 2px 4px rgba(0,0,0,.25)); }
+    .url{margin:14px 0 4px;text-align:center;font-size:clamp(16px,2.8vw,22px);color:#e8ebff;letter-spacing:.4px}
+    .url .u4{color:var(--blue);font-weight:700}
 
-    /* CTA + form */
-    .cta{ display:flex; justify-content:center; margin-top:18px }
-    form.waitlist{display:flex;flex-wrap:wrap;gap:10px; justify-content:center}
+    .cta{display:flex;justify-content:center;margin-top:14px}
+    form.waitlist{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
     .input{
       padding:12px 14px;border-radius:999px;border:1px solid rgba(0,0,0,.12);
       background:#fff;color:#1a1a1a;outline:none;min-width:min(360px,70vw);
       box-shadow:0 1px 0 rgba(0,0,0,.04), inset 0 0 0 1px rgba(255,255,255,.6);
     }
-    .input::placeholder{ color:#6b6f7a }
-    .input:focus{ border-color:#e7c265; box-shadow:0 0 0 3px rgba(231,194,101,.28) }
+    .input::placeholder{color:#6b6f7a}
+    .input:focus{border-color:#e7c265;box-shadow:0 0 0 3px rgba(231,194,101,.28)}
     .btn{
-      --btn-bg:linear-gradient(180deg,#f3d991,#e7c265); --btn-brd:#e7c265;
+      --btn-bg:linear-gradient(180deg,#f3d991,#e7c265);--btn-brd:#e7c265;
       padding:12px 18px;border-radius:999px;border:1px solid var(--btn-brd);
-      background:var(--btn-bg); color:#3c2f09; text-decoration:none; font-weight:700;
-      letter-spacing:.2px; display:inline-flex; align-items:center; gap:10px;
-      box-shadow:0 10px 22px rgba(231,194,101,.35); transition:transform .15s, box-shadow .2s
+      background:var(--btn-bg);color:#3c2f09;font-weight:700;letter-spacing:.2px;
+      display:inline-flex;align-items:center;gap:10px;
+      box-shadow:0 10px 22px rgba(231,194,101,.35);transition:transform .15s,box-shadow .2s;
     }
-    .btn:hover{ transform:translateY(-1px); box-shadow:0 12px 26px rgba(231,194,101,.42) }
+    .btn:hover{transform:translateY(-1px);box-shadow:0 12px 26px rgba(231,194,101,.42)}
 
-    /* URL line */
-    .url{
-      margin:14px 0 4px; text-align:center; font-size:clamp(16px,2.8vw,22px);
-      color:#e8ebff; letter-spacing:.4px
-    }
-    .url .u4{ color:var(--blue); font-weight:700 }
-
-    /* Help text / footer */
     .hint{font-size:12px;color:#dfe2f7;opacity:.85;margin-top:10px;text-align:center}
     .meta{margin-top:clamp(14px,2.6vw,22px);font-size:14px;color:#d0d4ef;text-align:center}
     footer{margin-top:clamp(18px,3.4vw,28px);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px dashed rgba(255,255,255,.22);padding-top:12px;font-size:13px;color:#d7d9eb;opacity:.9}
     .tiny{opacity:.85}
 
-    /* SR-only helper */
-    .sr-only{
-      position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;
-      overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;
-    }
+    .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 
-    @media (prefers-reduced-motion: reduce){body{animation:none}}
+    @media (prefers-reduced-motion:reduce){body{animation:none}}
   </style>
 </head>
 <body>
   <main class="wrap">
     <section class="card" aria-label="U4EVER coming soon">
-      <!-- Book above title -->
+      <!-- Book tile -->
       <div class="bookWrap">
-        <img id="bookLogo" src="/assets/book-logo.png" alt="U4EVER book logo">
-        <span class="bookFallback" aria-hidden="true"></span>
+        <div class="tile">
+          <img id="book" class="bookImg" src="/assets/Book-Logo.png" alt="U4EVER book logo" decoding="async" fetchpriority="high">
+          <span class="bookFallback" aria-hidden="true">
+            <!-- inline fallback -->
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M8 46c10-4 22 0 32 10V18C32 8 20 6 10 10 8.9 10.4 8 11.5 8 12.8V46z" fill="#e7c265"/><path d="M56 46c-10-4-22 0-32 10V18c8-10 20-12 30-8 1.1.4 2 1.5 2 2.8V46z" fill="#e7c265"/><rect x="50" y="6" width="6" height="6" rx="1" fill="#e7c265"/><rect x="50" y="14" width="6" height="6" rx="1" fill="#e7c265"/><rect x="58" y="10" width="6" height="6" rx="1" fill="#e7c265"/></svg>
+          </span>
+        </div>
       </div>
 
+      <!-- Brand -->
       <div class="brand">
         <h1 class="title">U<span class="four">4</span>EVER</h1>
         <div class="subbrand">TRUE • YOU • FOREVER</div>
       </div>
 
       <!-- Chain / Tagline / Chain -->
-      <div class="chainline" aria-hidden="true"></div>
+      <div id="chainTop" class="chainline" aria-hidden="true"></div>
 
       <div class="tagRow">
         <p class="tagline">
           In the end, all that’s left are stories.<br>
           We make sure they last forever.
         </p>
-        <!-- Quill -->
-        <svg class="quill" viewBox="0 0 64 64" aria-hidden="true">
-          <path d="M54 6c-7.5 1.8-21 9.9-29.6 20.7C20 34 17.2 42.5 16.4 46.4l10.1-3.6c.9-.3 1.8.5 1.5 1.4l-3.6 10.1c3.9-.8 12.4-3.6 19.7-8 10.8-6.7 18.9-20.1 20.7-27.6.2-.9-.6-1.7-1.5-1.5-4 .8-11.3 3.1-18 7-1.1-2.6-2.7-5.3-4.6-8.1 5.6-3.5 11.6-6 15.3-7.1.9-.3.7-1.6-.1-1.4Z"/>
-        </svg>
+        <img class="quillImg" src="/assets/Simple%20Quill.png" alt="" aria-hidden="true">
       </div>
 
-      <div class="chainline" aria-hidden="true"></div>
+      <div id="chainBottom" class="chainline" aria-hidden="true"></div>
 
       <!-- URL -->
       <div class="url">www.<span class="u4">u4</span>ever.com</div>
@@ -231,92 +187,4 @@
         </form>
       </div>
 
-      <div id="ack" class="success" role="status" aria-live="polite" style="display:none">Thanks! You’re on the list. We’ll email you when the beta opens.</div>
-      <div id="err" class="error" role="alert" style="display:none">Hmm, something went wrong. You can email us directly at <a href="mailto:admin@u4ever.com" style="color:#fff;text-decoration:underline">admin@u4ever.com</a>.</div>
-      <p class="hint">We’ll only use your email for U4EVER updates. No spam, ever.</p>
-
-      <p class="meta">
-        Building something worthy of forever. StoryGuide™ • LegacyLock™ • U4EVER™
-      </p>
-
-      <footer>
-        <span class="tiny">© <span id="year"></span> U4EVER</span>
-        <span class="tiny">Secure by design • On-chain • Off-cloud</span>
-      </footer>
-    </section>
-  </main>
-
-  <script>
-    // Book logo: try common alternate names (with/without spaces)
-    (function(){
-      const img = document.getElementById('bookLogo');
-      const fallback = document.querySelector('.bookFallback');
-      const candidates = [
-        "/assets/book-logo.png",
-        "/assets/Book%20Logo.png",
-        "/assets/Book%20logo.png",
-        "/assets/u4ever-logo.png",
-        "/assets/u4ever_logo.png",
-        "/Book%20Logo.png",
-        "/book-logo.png"
-      ];
-      let i=0;
-      function show(){ img.style.display='block'; fallback.style.display='none'; }
-      img.addEventListener('load', show);
-      img.addEventListener('error', ()=>{ i++; if(i<candidates.length){ img.src=candidates[i]; }});
-      if(img.complete && img.naturalWidth>0) show();
-    })();
-
-    // If chain image fails, swap lines to a CSS fallback pattern
-    (function(){
-      function imageExists(url, cb){
-        const t = new Image(); t.onload=()=>cb(true); t.onerror=()=>cb(false); t.src=url;
-      }
-      imageExists("/assets/chain.png", ok=>{
-        if(!ok){
-          document.querySelectorAll('.chainline').forEach(el=>{
-            el.classList.add('fallback');
-            el.style.height="10px";
-            el.style.background="repeating-linear-gradient(90deg, rgba(255,255,255,.9) 0 8px, rgba(255,255,255,.0) 8px 16px)";
-            el.style.opacity=".7";
-          });
-        }
-      });
-    })();
-
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Waitlist (Formspree-ready with fallback)
-    const FORM_ENDPOINT = ""; // e.g. "https://formspree.io/f/XXXXXXX"
-    const form = document.getElementById('waitlist');
-    const ack = document.getElementById('ack');
-    const err = document.getElementById('err');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value.trim();
-      if(!email){ return; }
-
-      if(!FORM_ENDPOINT){
-        window.location.href = `mailto:admin@u4ever.com?subject=U4EVER%20Waitlist&body=${encodeURIComponent(email)}`;
-        return;
-      }
-
-      try{
-        const fd = new FormData(form);
-        const res = await fetch(FORM_ENDPOINT, { method:"POST", headers:{ "Accept":"application/json" }, body:fd });
-        if(res.ok){
-          form.reset(); form.style.display='none'; ack.style.display='block';
-          localStorage.setItem('u4ever_waitlisted','1');
-        }else{ err.style.display='block'; }
-      }catch(_){ err.style.display='block'; }
-    });
-
-    if(localStorage.getItem('u4ever_waitlisted')==='1'){
-      document.getElementById('waitlist').style.display='none';
-      document.getElementById('ack').style.display='block';
-    }
-  </script>
-</body>
-</html>
+      <p class
