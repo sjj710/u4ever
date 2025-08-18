@@ -15,8 +15,8 @@
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="/favicon.ico" />
 
-  <!-- Preload custom headline font -->
-  <link rel="preload" as="font" type="font/woff2" href="/assets/u4ever-display.woff2" crossorigin>
+  <!-- Preload custom headline font (safe if missing) -->
+  <link rel="preload" as="font" type="font/woff2" href="/assets/u4ever-display.woff2?v=2" crossorigin>
 
   <style>
     :root{
@@ -25,31 +25,21 @@
       --shadow:0 20px 60px rgba(0,0,0,.35); --radius:24px; --maxw: 900px;
     }
 
-/* Use EXACT file names you uploaded (case-sensitive) */
-@font-face{
-  font-family: "U4EVER Display";
-  src: url("/assets/u4ever-display.woff2?v=1") format("woff2"),
-       url("/assets/u4ever-display.ttf?v=1") format("truetype");
-  font-weight: 100 900;   /* cover all weights */
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Force the H1 to use the font */
-h1{
-  margin:0;
-  font-family: "U4EVER Display", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  font-weight: 700;  /* try 400 if your font has only regular */
-  font-size: clamp(30px, 6.2vw, 46px);
-  line-height: 1.08;
-  letter-spacing: .3px;
-}
-
+    /* Custom display font for the H1 (tries woff2 then ttf) */
+    @font-face{
+      font-family: "U4EVER Display";
+      src:
+        url("/assets/u4ever-display.woff2?v=2") format("woff2"),
+        url("/assets/u4ever-display.ttf?v=2") format("truetype");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
 
     *{box-sizing:border-box} html,body{height:100%}
     body{
       margin:0; color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       display:grid; place-items:center;
 
       /* Calm sky/sunset wallpaper */
@@ -83,30 +73,28 @@ h1{
 
     header{display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-bottom:6px}
 
-    /* WHITE logo box so the logo stands out on blue/pink wallpaper */
+    /* White logo tile so the mark pops */
     .logoBox{
       position: relative;
       width:72px; height:72px; border-radius:16px;
       display:grid; place-items:center;
-      background:#ffffff;                            /* solid white */
-      border:1px solid rgba(0,0,0,.10);              /* lighter edge */
+      background:#fff;
+      border:1px solid rgba(0,0,0,.10);
       box-shadow:
-        0 10px 22px rgba(0,0,0,.22),                 /* lift */
-        inset 0 0 0 1px rgba(255,255,255,.80);       /* brighter inner line */
+        0 10px 22px rgba(0,0,0,.22),
+        inset 0 0 0 1px rgba(255,255,255,.80);
       animation: float 6s ease-in-out infinite;
     }
     .logoBox::after{
       content:""; position:absolute; inset:0; border-radius:16px;
-      box-shadow: 0 0 0 1.5px rgba(231,194,101,.28); /* soft gold rim */
+      box-shadow: 0 0 0 1.5px rgba(231,194,101,.28);
       pointer-events:none;
     }
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
-    .logoImg{
-      width:56px; height:auto; display:none;
-      filter: drop-shadow(0 1px 1px rgba(0,0,0,.12)) contrast(1.05) saturate(1.04);
-    }
-    .logoMark{width:30px;height:30px;display:block;background:
+    .logoImg{ width:56px; height:auto; display:none; filter: drop-shadow(0 1px 1px rgba(0,0,0,.12)) contrast(1.05) saturate(1.04); }
+    .logoMark{
+      width:30px;height:30px;display:block;background:
       radial-gradient(circle at 35% 50%, var(--accent) 0 3px, transparent 3px),
       radial-gradient(circle at 65% 50%, var(--accent) 0 3px, transparent 3px);
       mask:
@@ -114,13 +102,13 @@ h1{
         radial-gradient(closest-side,#000 98%,transparent 100%) right 32% center/50% 100% no-repeat;
     }
 
-    /* Headline uses custom display font when available */
+    /* Headline uses your display font when available */
     h1{
       margin:0;
-      font-size:clamp(30px,6.2vw,46px);
-      line-height:1.08; letter-spacing:.3px;
-      font-family: "U4EVER Display", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
-      font-weight: 700;
+      font-family: "U4EVER Display", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-weight: 700; /* try 400 if your font ships only Regular */
+      font-size: clamp(30px, 6.2vw, 46px);
+      line-height: 1.08; letter-spacing:.3px;
     }
 
     .tagline{margin-top:10px;font-size:clamp(16px,2.4vw,20px);color:var(--muted);opacity:0;transition:opacity .6s ease}
@@ -137,31 +125,21 @@ h1{
     .btn:hover{transform:translateY(-1px);border-color:#ffffff66}
     .btn.primary{--btn-bg:linear-gradient(180deg,#f3d991,#e7c265); --btn-brd:#e7c265; color:#3c2f09; box-shadow:0 10px 22px rgba(231,194,101,.35)}
 
-    /* ACCESSIBILITY: screen-reader-only helper */
+    /* SR-only helper for accessible labels */
     .sr-only{
-      position:absolute!important;
-      width:1px!important; height:1px!important;
-      padding:0!important; margin:-1px!important;
-      overflow:hidden!important; clip:rect(0,0,0,0)!important;
-      white-space:nowrap!important; border:0!important;
+      position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;
+      overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;
     }
 
-    /* Waitlist form */
+    /* Waitlist form + readable input */
     form.waitlist{display:flex;flex-wrap:wrap;gap:8px}
-
-    /* Improved readable input + focus ring */
     .input{
-      padding:12px 14px; border-radius:999px;
-      border:1px solid rgba(0,0,0,.12);
-      background:#ffffff; color:#1a1a1a;
-      outline:none; min-width:230px;
-      box-shadow: 0 1px 0 rgba(0,0,0,.04), inset 0 0 0 1px rgba(255,255,255,.6);
+      padding:12px 14px;border-radius:999px;border:1px solid rgba(0,0,0,.12);
+      background:#fff;color:#1a1a1a;outline:none;min-width:230px;
+      box-shadow:0 1px 0 rgba(0,0,0,.04), inset 0 0 0 1px rgba(255,255,255,.6);
     }
     .input::placeholder{ color:#6b6f7a }
-    .input:focus{
-      border-color:#e7c265;
-      box-shadow: 0 0 0 3px rgba(231,194,101,.28);
-    }
+    .input:focus{ border-color:#e7c265; box-shadow:0 0 0 3px rgba(231,194,101,.28) }
 
     .hint{font-size:12px;color:#dfe2f7;opacity:.85;margin-top:8px}
 
@@ -188,12 +166,10 @@ h1{
     <section class="card" aria-label="Coming soon">
       <header>
         <div class="logoBox" aria-hidden="true">
-          <img
-            class="logoImg"
-            src="/assets/u4ever-logo.png"
-            srcset="/assets/u4ever-logo@2x.png 2x"
-            alt="U4EVER logo"
-          />
+          <!-- Tries multiple logo paths/names automatically -->
+          <img id="logo" class="logoImg" alt="U4EVER logo"
+               src="/assets/u4ever-logo.png"
+               srcset="/assets/u4ever-logo@2x.png 2x" />
           <span class="logoMark"></span>
         </div>
         <div>
@@ -203,7 +179,7 @@ h1{
       </header>
 
       <div class="cta-row">
-        <form class="waitlist" id="waitlist" aria-label="Join the waitlist">
+        <form class="waitlist" id="waitlist" aria-label="Join the waitlist" novalidate>
           <label for="email" class="sr-only">Email address</label>
           <input id="email" name="email" type="email" class="input" placeholder="you@example.com" required />
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
@@ -248,17 +224,43 @@ h1{
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Prefer the real logo if available
+    // Prefer the real logo if available; try alternate names/paths on error
     (function(){
-      const img = document.querySelector('.logoImg');
+      const img = document.getElementById('logo');
       const mark = document.querySelector('.logoMark');
-      function showImage(){ img.style.display='block'; mark.style.display='none'; }
-      img.addEventListener('load', showImage);
-      if(img.complete && img.naturalWidth){ showImage(); }
+      const candidates = [
+        "/assets/u4ever-logo.png",
+        "/assets/u4ever_logo.png",
+        "/u4ever-logo.png",
+        "/u4ever_logo.png"
+      ];
+      function show(){ img.style.display='block'; mark.style.display='none'; }
+      img.addEventListener('load', show);
+
+      let i = 0;
+      img.addEventListener('error', () => {
+        i++; if(i < candidates.length){ img.src = candidates[i]; }
+      });
+
+      // kick off with first src already set
+      if(img.complete && img.naturalWidth){ show(); }
+    })();
+
+    // Try to load custom font with the Font Loading API as an extra fallback
+    (function(){
+      if (!("fonts" in document)) return;
+      const variants = [
+        "url(/assets/u4ever-display.woff2?v=2) format('woff2')",
+        "url(/assets/u4ever-display.ttf?v=2) format('truetype')"
+      ];
+      variants.forEach(src => {
+        const ff = new FontFace("U4EVER Display", src, { weight: "400" });
+        ff.load().then(f => document.fonts.add(f)).catch(()=>{});
+      });
     })();
 
     // Waitlist (Formspree-ready with fallback)
-    const FORM_ENDPOINT = "https://formspree.io/f/mzzvqagr"; // e.g. "https://formspree.io/f/xxxxxxx"
+    const FORM_ENDPOINT = ""; // e.g. "https://formspree.io/f/xxxxxxx"
     const form = document.getElementById('waitlist');
     const ack = document.getElementById('ack');
     const err = document.getElementById('err');
@@ -266,9 +268,10 @@ h1{
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('email').value.trim();
-      if(!email) return;
+      if(!email){ return; }
 
       if(!FORM_ENDPOINT){
+        // Fallback to mailto
         window.location.href = `mailto:admin@u4ever.com?subject=U4EVER%20Waitlist&body=${encodeURIComponent(email)}`;
         return;
       }
