@@ -23,11 +23,6 @@
       --text:#f7f7fb; --muted:#cfd2e6; --accent:#e7c265;
       --card:rgba(255,255,255,.08); --border:rgba(255,255,255,.18);
       --shadow:0 20px 60px rgba(0,0,0,.35); --radius:24px; --maxw: 900px;
-
-      /* === Change this to adjust the floating tile color === */
-      --tile-bg:#F3E5C8;               /* light tan */
-      --tile-border:rgba(140,110,70,.22);
-      --tile-rim:rgba(216,179,112,.35); /* warm gold rim */
     }
 
     /* Custom display font for the H1 */
@@ -76,37 +71,12 @@
       filter:blur(22px); opacity:.35; pointer-events:none;
     }
 
-    header{display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-bottom:6px}
+    /* Header with book mark to the left of the name */
+    header{display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:6px}
 
-    /* Floating logo tile (light tan) */
-    .logoBox{
-      position: relative;
-      width:72px; height:72px; border-radius:16px;
-      display:grid; place-items:center;
-      background:var(--tile-bg);
-      border:1px solid var(--tile-border);
-      box-shadow:
-        0 10px 22px rgba(0,0,0,.22),
-        inset 0 0 0 1px rgba(255,255,255,.75);
-      animation: float 6s ease-in-out infinite;
-    }
-    .logoBox::after{
-      content:""; position:absolute; inset:0; border-radius:16px;
-      box-shadow: 0 0 0 1.5px var(--tile-rim);
-      pointer-events:none;
-    }
-    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-
-    .logoImg{
-      width:56px; height:auto; display:none;
-      filter: drop-shadow(0 1px 1px rgba(0,0,0,.12)) contrast(1.05) saturate(1.04);
-    }
-    .logoMark{width:30px;height:30px;display:block;background:
-      radial-gradient(circle at 35% 50%, var(--accent) 0 3px, transparent 3px),
-      radial-gradient(circle at 65% 50%, var(--accent) 0 3px, transparent 3px);
-      mask:
-        radial-gradient(closest-side,#000 98%,transparent 100%) left 32% center/50% 100% no-repeat,
-        radial-gradient(closest-side,#000 98%,transparent 100%) right 32% center/50% 100% no-repeat;
+    .bookMark{
+      width:56px; height:auto; display:block;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,.18));
     }
 
     /* Headline uses your display font when available */
@@ -165,22 +135,19 @@
       font-size:14px; color:#ffeaea; display:none;
     }
 
-    @media (prefers-reduced-motion: reduce){body,.logoBox,.tagline{animation:none!important}}
+    @media (prefers-reduced-motion: reduce){body,.tagline{animation:none!important}}
   </style>
 </head>
 <body>
   <main class="wrap">
     <section class="card" aria-label="Coming soon">
       <header>
-        <div class="logoBox" aria-hidden="true">
-          <img
-            class="logoImg"
-            src="/assets/u4ever-logo.png"
-            srcset="/assets/u4ever-logo@2x.png 2x"
-            alt="U4EVER logo"
-          />
-          <span class="logoMark"></span>
-        </div>
+        <!-- New book mark (parchment tan) next to the name -->
+        <img class="bookMark"
+             src="/assets/book-tan.png"
+             srcset="/assets/book-tan@2x.png 2x"
+             alt="U4EVER book logo" />
+
         <div>
           <h1>U4EVER</h1>
           <div class="tagline" id="tagline">In the end, all that’s left are stories. We make sure they last forever.</div>
@@ -203,9 +170,7 @@
       <div id="err" class="error" role="alert">Hmm, something went wrong. You can email us directly at <a href="mailto:admin@u4ever.com" style="color:#fff;text-decoration:underline">admin@u4ever.com</a>.</div>
       <p class="hint">We’ll only use your email for U4EVER updates. No spam, ever.</p>
 
-      <p class="meta">
-        Building something worthy of forever. StoryGuide™ • LegacyLock™ • U4EVER™
-      </p>
+      <p class="meta">Building something worthy of forever. StoryGuide™ • LegacyLock™ • U4EVER™</p>
 
       <footer>
         <span class="tiny">© <span id="year"></span> U4EVER</span>
@@ -215,7 +180,7 @@
   </main>
 
   <script>
-    // Smooth tagline rotation
+    // Tagline fade-in / optional rotation
     const tagline = document.getElementById('tagline');
     const phrases = [
       "In the end, all that’s left are stories. We make sure they last forever.",
@@ -233,15 +198,6 @@
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Prefer the real logo if available
-    (function(){
-      const img = document.querySelector('.logoImg');
-      const mark = document.querySelector('.logoMark');
-      function showImage(){ img.style.display='block'; mark.style.display='none'; }
-      img.addEventListener('load', showImage);
-      if(img.complete && img.naturalWidth){ showImage(); }
-    })();
-
     // Waitlist (Formspree-ready with fallback)
     const FORM_ENDPOINT = ""; // e.g. "https://formspree.io/f/xxxxxxx"
     const form = document.getElementById('waitlist');
@@ -251,10 +207,9 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('email').value.trim();
-      if(!email){ return; }
+      if(!email) return;
 
       if(!FORM_ENDPOINT){
-        // Fallback to mailto
         window.location.href = `mailto:admin@u4ever.com?subject=U4EVER%20Waitlist&body=${encodeURIComponent(email)}`;
         return;
       }
