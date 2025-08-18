@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>U4EVER — Coming Soon</title>
+  <title>U4EVER — True • You • Forever</title>
 
   <!-- SEO / Social -->
-  <meta name="description" content="In the end, all that’s left are stories. We make sure they last forever." />
+  <meta name="description" content="True • You • Forever. In the end, all that’s left are stories. We make sure they last forever." />
   <meta property="og:title" content="U4EVER — Coming Soon" />
   <meta property="og:description" content="In the end, all that’s left are stories. We make sure they last forever." />
   <meta property="og:type" content="website" />
@@ -15,28 +15,49 @@
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="/favicon.ico" />
 
-  <!-- Preload custom headline font (safe if missing) -->
-  <link rel="preload" as="font" type="font/woff2" href="/assets/u4ever-display.woff2?v=3" crossorigin>
+  <!-- Preload (safe if missing) -->
+  <link rel="preload" as="image" href="/assets/chain.png">
+  <link rel="preload" as="font" href="/assets/CinzelDecorative-Regular.ttf" type="font/ttf" crossorigin>
+  <link rel="preload" as="font" href="/assets/DancingScript-Regular.ttf" type="font/ttf" crossorigin>
 
   <style>
     :root{
-      --text:#f7f7fb; --muted:#cfd2e6; --accent:#e7c265;
-      --card:rgba(255,255,255,.08); --border:rgba(255,255,255,.18);
-      --shadow:0 20px 60px rgba(0,0,0,.35); --radius:24px; --maxw: 900px;
+      /* Brand palette */
+      --navy:#0f2442;
+      --navy-2:#18365f;
+      --blue:#7fb0df;        /* accent for the “4” + quill */
+      --muted:#cfd2e6;
+      --text:#f7f7fb;
+      --accent:#e7c265;
 
-      /* === Change this to adjust the floating tile color === */
-      --tile-bg:#F3E5C8;               /* light tan */
-      --tile-border:rgba(140,110,70,.22);
-      --tile-rim:rgba(216,179,112,.35); /* warm gold rim */
+      /* Card + layout */
+      --card:rgba(255,255,255,.08);
+      --border:rgba(255,255,255,.18);
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:28px;
+      --maxw:980px;
+
+      /* Chain and decorative lines */
+      --chain-h:12px;
+
+      /* Easy tweaks */
+      --title-size: clamp(38px, 7.6vw, 64px);
+      --script-size: clamp(18px, 3.6vw, 28px);
     }
 
-    /* Custom display font for the H1 */
+    /* Title font (display) */
     @font-face{
       font-family: "U4EVER Display";
-      src:
-        url("/assets/u4ever-display.woff2?v=3") format("woff2"),
-        url("/assets/u4ever-display.ttf?v=3") format("truetype");
-      font-weight: 100 900;
+      src: url("/assets/CinzelDecorative-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    /* Script tagline font */
+    @font-face{
+      font-family: "U4EVER Script";
+      src: url("/assets/DancingScript-Regular.ttf") format("truetype");
+      font-weight: 400;
       font-style: normal;
       font-display: swap;
     }
@@ -61,146 +82,157 @@
       100%{ background-position: 10% 6%, 92% 94%, 48% 52%, 0 0 }
     }
 
-    .wrap{width:min(var(--maxw),92vw); padding:clamp(20px,4vw,40px)}
+    .wrap{width:min(var(--maxw),92vw); padding:clamp(16px,3vw,24px)}
     .card{
       position:relative;
-      padding:clamp(28px,5vw,56px);
+      padding:clamp(28px,5vw,58px);
       background:var(--card); border:1px solid var(--border);
       border-radius:var(--radius); box-shadow:var(--shadow);
       backdrop-filter:saturate(140%) blur(14px); -webkit-backdrop-filter:saturate(140%) blur(14px);
       overflow:hidden;
     }
-    .card::after{
-      content:""; position:absolute; inset:-2px;
-      background:conic-gradient(from 180deg at 50% 50%, rgba(231,194,101,.10), transparent 18%, rgba(231,194,101,.10) 34%, transparent 60%);
-      filter:blur(22px); opacity:.35; pointer-events:none;
-    }
 
-    header{display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-bottom:6px}
-
-    /* Floating logo tile (light tan) */
-    .logoBox{
-      position: relative;
-      width:72px; height:72px; border-radius:16px;
-      display:grid; place-items:center;
-      background:var(--tile-bg);
-      border:1px solid var(--tile-border);
-      box-shadow:
-        0 10px 22px rgba(0,0,0,.22),
-        inset 0 0 0 1px rgba(255,255,255,.75);
-      animation: float 6s ease-in-out infinite;
-    }
-    .logoBox::after{
-      content:""; position:absolute; inset:0; border-radius:16px;
-      box-shadow: 0 0 0 1.5px var(--tile-rim);
-      pointer-events:none;
-    }
-    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-
-    .logoImg{
-      width:56px; height:auto; display:none;
-      filter: drop-shadow(0 1px 1px rgba(0,0,0,.12)) contrast(1.05) saturate(1.04);
-    }
-    .logoMark{width:30px;height:30px;display:block;background:
-      radial-gradient(circle at 35% 50%, var(--accent) 0 3px, transparent 3px),
-      radial-gradient(circle at 65% 50%, var(--accent) 0 3px, transparent 3px);
+    /* Book mark above the title */
+    .bookWrap{ display:grid; place-items:center; margin-bottom:12px }
+    #bookLogo{ width:108px; height:auto; display:none; filter:drop-shadow(0 6px 18px rgba(0,0,0,.28)); }
+    .bookFallback{
+      width:44px;height:44px;display:block;
+      background:
+        radial-gradient(circle at 35% 50%, var(--accent) 0 6px, transparent 6px),
+        radial-gradient(circle at 65% 50%, var(--accent) 0 6px, transparent 6px);
       mask:
-        radial-gradient(closest-side,#000 98%,transparent 100%) left 32% center/50% 100% no-repeat,
-        radial-gradient(closest-side,#000 98%,transparent 100%) right 32% center/50% 100% no-repeat;
+        radial-gradient(closest-side,#000 98%,transparent 100%) left 30% center/50% 100% no-repeat,
+        radial-gradient(closest-side,#000 98%,transparent 100%) right 30% center/50% 100% no-repeat;
+      filter:drop-shadow(0 6px 18px rgba(0,0,0,.28));
     }
 
-    /* Headline uses your display font when available */
-    h1{
+    /* Brand lockup */
+    .brand{ text-align:center }
+    .title{
       margin:0;
-      font-family: "U4EVER Display", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      font-weight: 700; /* try 400 if your font ships only Regular */
-      font-size: clamp(30px, 6.2vw, 46px);
-      line-height: 1.08; letter-spacing:.3px;
+      font-family:"U4EVER Display", ui-serif, Georgia, "Times New Roman", serif;
+      font-weight:400; letter-spacing:.6px;
+      font-size:var(--title-size); line-height:1.02;
+      color:#f5f7ff; text-shadow:0 1px 0 rgba(255,255,255,.06);
+    }
+    .title .four{ color:var(--blue) }
+    .subbrand{
+      margin-top:2px; font-size:clamp(12px,2.6vw,14px); letter-spacing:.18em; opacity:.92
     }
 
-    .tagline{margin-top:10px;font-size:clamp(16px,2.4vw,20px);color:var(--muted);opacity:0;transition:opacity .6s ease}
+    /* Chain separators */
+    .chainline{
+      width:100%; height:var(--chain-h);
+      background:url('/assets/chain.png') repeat-x center/auto 100%;
+      opacity:.95; margin:14px 0;
+      border-radius:8px;
+    }
+    .chainline.fallback{ display:none } /* turned on by JS if needed */
 
-    .cta-row{display:flex;flex-wrap:wrap;gap:8px; margin-top:clamp(14px,2.6vw,24px)}
+    /* Tagline line with quill on the right */
+    .tagRow{
+      display:grid; grid-template-columns: 1fr auto; align-items:center; gap:12px;
+      margin:6px 0 8px 0;
+    }
+    .tagline{
+      margin:0; color:#e5e8fb; opacity:.98; letter-spacing:.4px;
+      font-family:"U4EVER Script", "Segoe UI", cursive;
+      font-size:var(--script-size); line-height:1.35; text-align:center;
+    }
 
+    /* Quill (inline SVG) */
+    .quill{ width:38px; height:38px; }
+    .quill path{ fill:var(--blue); filter:drop-shadow(0 2px 4px rgba(0,0,0,.25)); }
+
+    /* CTA + form */
+    .cta{ display:flex; justify-content:center; margin-top:18px }
+    form.waitlist{display:flex;flex-wrap:wrap;gap:10px; justify-content:center}
+    .input{
+      padding:12px 14px;border-radius:999px;border:1px solid rgba(0,0,0,.12);
+      background:#fff;color:#1a1a1a;outline:none;min-width:min(360px,70vw);
+      box-shadow:0 1px 0 rgba(0,0,0,.04), inset 0 0 0 1px rgba(255,255,255,.6);
+    }
+    .input::placeholder{ color:#6b6f7a }
+    .input:focus{ border-color:#e7c265; box-shadow:0 0 0 3px rgba(231,194,101,.28) }
     .btn{
-      --btn-bg:#ffffff14; --btn-brd:#ffffff30;
+      --btn-bg:linear-gradient(180deg,#f3d991,#e7c265); --btn-brd:#e7c265;
       padding:12px 18px;border-radius:999px;border:1px solid var(--btn-brd);
-      background:var(--btn-bg); color:var(--text); text-decoration:none;
-      font-weight:700; letter-spacing:.2px; transition:transform .15s, background .2s, border-color .2s, box-shadow .2s;
-      display:inline-flex; align-items:center; gap:10px; box-shadow:0 8px 20px rgba(0,0,0,.2)
+      background:var(--btn-bg); color:#3c2f09; text-decoration:none; font-weight:700;
+      letter-spacing:.2px; display:inline-flex; align-items:center; gap:10px;
+      box-shadow:0 10px 22px rgba(231,194,101,.35); transition:transform .15s, box-shadow .2s
     }
-    .btn:hover{transform:translateY(-1px);border-color:#ffffff66}
-    .btn.primary{--btn-bg:linear-gradient(180deg,#f3d991,#e7c265); --btn-brd:#e7c265; color:#3c2f09; box-shadow:0 10px 22px rgba(231,194,101,.35)}
+    .btn:hover{ transform:translateY(-1px); box-shadow:0 12px 26px rgba(231,194,101,.42) }
 
-    /* Screen-reader-only helper */
+    /* URL line */
+    .url{
+      margin:14px 0 4px; text-align:center; font-size:clamp(16px,2.8vw,22px);
+      color:#e8ebff; letter-spacing:.4px
+    }
+    .url .u4{ color:var(--blue); font-weight:700 }
+
+    /* Help text / footer */
+    .hint{font-size:12px;color:#dfe2f7;opacity:.85;margin-top:10px;text-align:center}
+    .meta{margin-top:clamp(14px,2.6vw,22px);font-size:14px;color:#d0d4ef;text-align:center}
+    footer{margin-top:clamp(18px,3.4vw,28px);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px dashed rgba(255,255,255,.22);padding-top:12px;font-size:13px;color:#d7d9eb;opacity:.9}
+    .tiny{opacity:.85}
+
+    /* SR-only helper */
     .sr-only{
       position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;
       overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;
     }
 
-    /* Waitlist form + readable input */
-    form.waitlist{display:flex;flex-wrap:wrap;gap:8px}
-    .input{
-      padding:12px 14px;border-radius:999px;border:1px solid rgba(0,0,0,.12);
-      background:#fff;color:#1a1a1a;outline:none;min-width:230px;
-      box-shadow:0 1px 0 rgba(0,0,0,.04), inset 0 0 0 1px rgba(255,255,255,.6);
-    }
-    .input::placeholder{ color:#6b6f7a }
-    .input:focus{ border-color:#e7c265; box-shadow:0 0 0 3px rgba(231,194,101,.28) }
-
-    .hint{font-size:12px;color:#dfe2f7;opacity:.85;margin-top:8px}
-
-    .meta{margin-top:clamp(16px,2.6vw,22px);font-size:14px;color:var(--muted)}
-    footer{margin-top:clamp(22px,3.4vw,32px);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px dashed rgba(255,255,255,.22);padding-top:14px;font-size:13px;color:#d7d9eb;opacity:.9}
-    .tiny{opacity:.85}
-
-    .success{
-      margin-top:12px; padding:10px 14px; border-radius:12px;
-      background:rgba(60, 255, 160, .12); border:1px solid rgba(60,255,160,.35);
-      font-size:14px; color:#e8fff3; display:none;
-    }
-    .error{
-      margin-top:12px; padding:10px 14px; border-radius:12px;
-      background:rgba(255, 80, 80, .12); border:1px solid rgba(255,80,80,.35);
-      font-size:14px; color:#ffeaea; display:none;
-    }
-
-    @media (prefers-reduced-motion: reduce){body,.logoBox,.tagline{animation:none!important}}
+    @media (prefers-reduced-motion: reduce){body{animation:none}}
   </style>
 </head>
 <body>
   <main class="wrap">
-    <section class="card" aria-label="Coming soon">
-      <header>
-        <div class="logoBox" aria-hidden="true">
-          <img
-            class="logoImg"
-            src="/assets/u4ever-logo.png"
-            srcset="/assets/u4ever-logo@2x.png 2x"
-            alt="U4EVER logo"
-          />
-          <span class="logoMark"></span>
-        </div>
-        <div>
-          <h1>U4EVER</h1>
-          <div class="tagline" id="tagline">In the end, all that’s left are stories. We make sure they last forever.</div>
-        </div>
-      </header>
+    <section class="card" aria-label="U4EVER coming soon">
+      <!-- Book above title -->
+      <div class="bookWrap">
+        <img id="bookLogo" src="/assets/book-logo.png" alt="U4EVER book logo">
+        <span class="bookFallback" aria-hidden="true"></span>
+      </div>
 
-      <div class="cta-row">
+      <div class="brand">
+        <h1 class="title">U<span class="four">4</span>EVER</h1>
+        <div class="subbrand">TRUE • YOU • FOREVER</div>
+      </div>
+
+      <!-- Chain / Tagline / Chain -->
+      <div class="chainline" aria-hidden="true"></div>
+
+      <div class="tagRow">
+        <p class="tagline">
+          In the end, all that’s left are stories.<br>
+          We make sure they last forever.
+        </p>
+        <!-- Quill -->
+        <svg class="quill" viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M54 6c-7.5 1.8-21 9.9-29.6 20.7C20 34 17.2 42.5 16.4 46.4l10.1-3.6c.9-.3 1.8.5 1.5 1.4l-3.6 10.1c3.9-.8 12.4-3.6 19.7-8 10.8-6.7 18.9-20.1 20.7-27.6.2-.9-.6-1.7-1.5-1.5-4 .8-11.3 3.1-18 7-1.1-2.6-2.7-5.3-4.6-8.1 5.6-3.5 11.6-6 15.3-7.1.9-.3.7-1.6-.1-1.4Z"/>
+        </svg>
+      </div>
+
+      <div class="chainline" aria-hidden="true"></div>
+
+      <!-- URL -->
+      <div class="url">www.<span class="u4">u4</span>ever.com</div>
+
+      <!-- CTA -->
+      <div class="cta">
         <form class="waitlist" id="waitlist" aria-label="Join the waitlist" novalidate>
           <label for="email" class="sr-only">Email address</label>
           <input id="email" name="email" type="email" class="input" placeholder="you@example.com" required />
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-          <button class="btn primary" type="submit">
+          <button class="btn" type="submit">
             Join the waitlist
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 12H2"/><path d="M15 5l7 7-7 7"/></svg>
           </button>
         </form>
       </div>
 
-      <div id="ack" class="success" role="status" aria-live="polite">Thanks! You’re on the list. We’ll email you when the beta opens.</div>
-      <div id="err" class="error" role="alert">Hmm, something went wrong. You can email us directly at <a href="mailto:admin@u4ever.com" style="color:#fff;text-decoration:underline">admin@u4ever.com</a>.</div>
+      <div id="ack" class="success" role="status" aria-live="polite" style="display:none">Thanks! You’re on the list. We’ll email you when the beta opens.</div>
+      <div id="err" class="error" role="alert" style="display:none">Hmm, something went wrong. You can email us directly at <a href="mailto:admin@u4ever.com" style="color:#fff;text-decoration:underline">admin@u4ever.com</a>.</div>
       <p class="hint">We’ll only use your email for U4EVER updates. No spam, ever.</p>
 
       <p class="meta">
@@ -215,35 +247,48 @@
   </main>
 
   <script>
-    // Smooth tagline rotation
-    const tagline = document.getElementById('tagline');
-    const phrases = [
-      "In the end, all that’s left are stories. We make sure they last forever.",
-      "Your stories, sealed forever. On-chain. Off-cloud. Beyond time.",
-      "Simple to start. Impossible to forget."
-    ];
-    let idx = 0;
-    function rotateTagline(){
-      idx = (idx + 1) % phrases.length;
-      tagline.style.opacity = 0;
-      setTimeout(()=>{ tagline.textContent = phrases[idx]; tagline.style.opacity = 1; }, 250);
-    }
-    setTimeout(()=>{ tagline.style.opacity = 1; setInterval(rotateTagline, 6500); }, 200);
+    // Book logo: try common alternate names (with/without spaces)
+    (function(){
+      const img = document.getElementById('bookLogo');
+      const fallback = document.querySelector('.bookFallback');
+      const candidates = [
+        "/assets/book-logo.png",
+        "/assets/Book%20Logo.png",
+        "/assets/Book%20logo.png",
+        "/assets/u4ever-logo.png",
+        "/assets/u4ever_logo.png",
+        "/Book%20Logo.png",
+        "/book-logo.png"
+      ];
+      let i=0;
+      function show(){ img.style.display='block'; fallback.style.display='none'; }
+      img.addEventListener('load', show);
+      img.addEventListener('error', ()=>{ i++; if(i<candidates.length){ img.src=candidates[i]; }});
+      if(img.complete && img.naturalWidth>0) show();
+    })();
+
+    // If chain image fails, swap lines to a CSS fallback pattern
+    (function(){
+      function imageExists(url, cb){
+        const t = new Image(); t.onload=()=>cb(true); t.onerror=()=>cb(false); t.src=url;
+      }
+      imageExists("/assets/chain.png", ok=>{
+        if(!ok){
+          document.querySelectorAll('.chainline').forEach(el=>{
+            el.classList.add('fallback');
+            el.style.height="10px";
+            el.style.background="repeating-linear-gradient(90deg, rgba(255,255,255,.9) 0 8px, rgba(255,255,255,.0) 8px 16px)";
+            el.style.opacity=".7";
+          });
+        }
+      });
+    })();
 
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Prefer the real logo if available
-    (function(){
-      const img = document.querySelector('.logoImg');
-      const mark = document.querySelector('.logoMark');
-      function showImage(){ img.style.display='block'; mark.style.display='none'; }
-      img.addEventListener('load', showImage);
-      if(img.complete && img.naturalWidth){ showImage(); }
-    })();
-
     // Waitlist (Formspree-ready with fallback)
-    const FORM_ENDPOINT = ""; // e.g. "https://formspree.io/f/xxxxxxx"
+    const FORM_ENDPOINT = ""; // e.g. "https://formspree.io/f/XXXXXXX"
     const form = document.getElementById('waitlist');
     const ack = document.getElementById('ack');
     const err = document.getElementById('err');
@@ -254,7 +299,6 @@
       if(!email){ return; }
 
       if(!FORM_ENDPOINT){
-        // Fallback to mailto
         window.location.href = `mailto:admin@u4ever.com?subject=U4EVER%20Waitlist&body=${encodeURIComponent(email)}`;
         return;
       }
