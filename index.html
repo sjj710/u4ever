@@ -25,7 +25,6 @@
       --shadow:0 20px 60px rgba(0,0,0,.35); --radius:24px; --maxw:900px;
     }
 
-    /* Display font for the H1 */
     @font-face{
       font-family:"U4EVER Display";
       src:
@@ -70,10 +69,13 @@
       filter:blur(22px); opacity:.35; pointer-events:none;
     }
 
-    /* Header: name on left, book on right */
-    header{display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:6px}
+    /* ===== brand row: title + book (right) ===== */
+    header{margin-bottom:6px}
+    .brandRow{
+      display:flex; align-items:center; gap:12px; flex-wrap:nowrap;
+    }
     .bookMark{
-      width:56px; height:auto; display:block;
+      width:clamp(40px,6vw,64px); height:auto; display:block;
       filter:drop-shadow(0 1px 1px rgba(0,0,0,.18));
     }
 
@@ -102,7 +104,6 @@
     .btn:hover{transform:translateY(-1px);border-color:#ffffff66}
     .btn.primary{--btn-bg:linear-gradient(180deg,#f3d991,#e7c265); --btn-brd:#e7c265; color:#3c2f09; box-shadow:0 10px 22px rgba(231,194,101,.35)}
 
-    /* SR-only helper */
     .sr-only{
       position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;
       overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;
@@ -144,23 +145,23 @@
 <body>
   <main class="wrap">
     <section class="card" aria-label="Coming soon">
-      <header>
-        <div>
-          <h1>U4EVER</h1>
-          <div class="tagline" id="tagline">
-            In the end, all that’s left are stories. We make sure they last forever.
-          </div>
-        </div>
 
-        <!-- Book on the RIGHT of the name -->
-        <img
-          class="bookMark"
-          src="/assets/book-logo.png"
-          srcset="/assets/book-logo@2x.png 2x"
-          alt="U4EVER book logo"
-          width="56" height="56"
-          decoding="async" fetchpriority="high"
-        />
+      <!-- brand row (title + book on the right) -->
+      <header>
+        <div class="brandRow">
+          <h1>U4EVER</h1>
+          <img
+            class="bookMark"
+            src="/assets/book-logo.png"
+            srcset="/assets/book-logo@2x.png 2x"
+            alt="U4EVER book logo"
+            width="56" height="56"
+            decoding="async" fetchpriority="high"
+          />
+        </div>
+        <div class="tagline" id="tagline">
+          In the end, all that’s left are stories. We make sure they last forever.
+        </div>
       </header>
 
       <div class="cta-row">
