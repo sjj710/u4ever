@@ -74,22 +74,25 @@
     header{display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-bottom:6px}
 
     /* White logo tile so the mark pops */
-    .logoBox{
-      position: relative;
-      width:72px; height:72px; border-radius:16px;
-      display:grid; place-items:center;
-      background:#fff;
-      border:1px solid rgba(0,0,0,.10);
-      box-shadow:
-        0 10px 22px rgba(0,0,0,.22),
-        inset 0 0 0 1px rgba(255,255,255,.80);
-      animation: float 6s ease-in-out infinite;
-    }
-    .logoBox::after{
-      content:""; position:absolute; inset:0; border-radius:16px;
-      box-shadow: 0 0 0 1.5px rgba(231,194,101,.28);
-      pointer-events:none;
-    }
+   /* BEFORE */
+.logoBox{
+  /* ... */
+  background:#fff;             /* <-- change this */
+  border:1px solid rgba(0,0,0,.10);
+  box-shadow: 0 10px 22px rgba(0,0,0,.22),
+              inset 0 0 0 1px rgba(255,255,255,.80);
+}
+/* AFTER (light tan tile) */
+.logoBox{
+  /* ... */
+  background:#F5E7D3;          /* light tan */
+  border:1px solid rgba(140,110,70,.20);   /* warmer edge (optional) */
+  box-shadow: 0 10px 22px rgba(0,0,0,.20),
+              inset 0 0 0 1px rgba(255,255,255,.65);
+}
+.logoBox::after{
+  box-shadow: 0 0 0 1.5px rgba(206,164,92,.35); /* warmer gold rim */
+}
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
     .logoImg{ width:56px; height:auto; display:none; filter: drop-shadow(0 1px 1px rgba(0,0,0,.12)) contrast(1.05) saturate(1.04); }
