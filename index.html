@@ -71,24 +71,28 @@
       filter:blur(22px); opacity:.35; pointer-events:none;
     }
 
-    /* Header with book mark to the left of the name */
-    header{display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:6px}
-
+    /* Header: name on left, book on right */
+    header{
+      display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:6px
+    }
     .bookMark{
       width:56px; height:auto; display:block;
       filter: drop-shadow(0 1px 1px rgba(0,0,0,.18));
     }
 
-    /* Headline uses your display font when available */
+    /* Headline */
     h1{
       margin:0;
       font-family: "U4EVER Display", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      font-weight: 700; /* try 400 if your font ships only Regular */
+      font-weight: 700;
       font-size: clamp(30px, 6.2vw, 46px);
       line-height: 1.08; letter-spacing:.3px;
     }
 
-    .tagline{margin-top:10px;font-size:clamp(16px,2.4vw,20px);color:var(--muted);opacity:0;transition:opacity .6s ease}
+    .tagline{
+      margin-top:10px;font-size:clamp(16px,2.4vw,20px);
+      color:var(--muted);opacity:0;transition:opacity .6s ease
+    }
 
     .cta-row{display:flex;flex-wrap:wrap;gap:8px; margin-top:clamp(14px,2.6vw,24px)}
 
@@ -108,7 +112,7 @@
       overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;
     }
 
-    /* Waitlist form + readable input */
+    /* Waitlist form */
     form.waitlist{display:flex;flex-wrap:wrap;gap:8px}
     .input{
       padding:12px 14px;border-radius:999px;border:1px solid rgba(0,0,0,.12);
@@ -119,9 +123,12 @@
     .input:focus{ border-color:#e7c265; box-shadow:0 0 0 3px rgba(231,194,101,.28) }
 
     .hint{font-size:12px;color:#dfe2f7;opacity:.85;margin-top:8px}
-
     .meta{margin-top:clamp(16px,2.6vw,22px);font-size:14px;color:var(--muted)}
-    footer{margin-top:clamp(22px,3.4vw,32px);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px dashed rgba(255,255,255,.22);padding-top:14px;font-size:13px;color:#d7d9eb;opacity:.9}
+    footer{
+      margin-top:clamp(22px,3.4vw,32px);
+      display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+      border-top:1px dashed rgba(255,255,255,.22);padding-top:14px;font-size:13px;color:#d7d9eb;opacity:.9
+    }
     .tiny{opacity:.85}
 
     .success{
@@ -142,92 +149,16 @@
   <main class="wrap">
     <section class="card" aria-label="Coming soon">
       <header>
-        <!-- New book mark (parchment tan) next to the name -->
-        <img class="bookMark"
-             src="/assets/book-tan.png"
-             srcset="/assets/book-tan@2x.png 2x"
-             alt="U4EVER book logo" />
-
         <div>
           <h1>U4EVER</h1>
           <div class="tagline" id="tagline">In the end, all that’s left are stories. We make sure they last forever.</div>
         </div>
-      </header>
 
-      <div class="cta-row">
-        <form class="waitlist" id="waitlist" aria-label="Join the waitlist" novalidate>
-          <label for="email" class="sr-only">Email address</label>
-          <input id="email" name="email" type="email" class="input" placeholder="you@example.com" required />
-          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-          <button class="btn primary" type="submit">
-            Join the waitlist
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 12H2"/><path d="M15 5l7 7-7 7"/></svg>
-          </button>
-        </form>
-      </div>
-
-      <div id="ack" class="success" role="status" aria-live="polite">Thanks! You’re on the list. We’ll email you when the beta opens.</div>
-      <div id="err" class="error" role="alert">Hmm, something went wrong. You can email us directly at <a href="mailto:admin@u4ever.com" style="color:#fff;text-decoration:underline">admin@u4ever.com</a>.</div>
-      <p class="hint">We’ll only use your email for U4EVER updates. No spam, ever.</p>
-
-      <p class="meta">Building something worthy of forever. StoryGuide™ • LegacyLock™ • U4EVER™</p>
-
-      <footer>
-        <span class="tiny">© <span id="year"></span> U4EVER</span>
-        <span class="tiny">Secure by design • On-chain • Off-cloud</span>
-      </footer>
-    </section>
-  </main>
-
-  <script>
-    // Tagline fade-in / optional rotation
-    const tagline = document.getElementById('tagline');
-    const phrases = [
-      "In the end, all that’s left are stories. We make sure they last forever.",
-      "Your stories, sealed forever. On-chain. Off-cloud. Beyond time.",
-      "Simple to start. Impossible to forget."
-    ];
-    let idx = 0;
-    function rotateTagline(){
-      idx = (idx + 1) % phrases.length;
-      tagline.style.opacity = 0;
-      setTimeout(()=>{ tagline.textContent = phrases[idx]; tagline.style.opacity = 1; }, 250);
-    }
-    setTimeout(()=>{ tagline.style.opacity = 1; setInterval(rotateTagline, 6500); }, 200);
-
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Waitlist (Formspree-ready with fallback)
-    const FORM_ENDPOINT = ""; // e.g. "https://formspree.io/f/xxxxxxx"
-    const form = document.getElementById('waitlist');
-    const ack = document.getElementById('ack');
-    const err = document.getElementById('err');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value.trim();
-      if(!email) return;
-
-      if(!FORM_ENDPOINT){
-        window.location.href = `mailto:admin@u4ever.com?subject=U4EVER%20Waitlist&body=${encodeURIComponent(email)}`;
-        return;
-      }
-
-      try{
-        const fd = new FormData(form);
-        const res = await fetch(FORM_ENDPOINT, { method:"POST", headers:{ "Accept":"application/json" }, body:fd });
-        if(res.ok){
-          form.reset(); form.style.display='none'; ack.style.display='block';
-          localStorage.setItem('u4ever_waitlisted','1');
-        }else{ err.style.display='block'; }
-      }catch(_){ err.style.display='block'; }
-    });
-
-    if(localStorage.getItem('u4ever_waitlisted')==='1'){
-      document.getElementById('waitlist').style.display='none';
-      document.getElementById('ack').style.display='block';
-    }
-  </script>
-</body>
-</html>
+        <!-- Book logo on the RIGHT of the name -->
+        <img
+          class="bookMark"
+          src="/assets/book-logo.png"
+          srcset="/assets/book-logo@2x.png 2x"
+          alt="U4EVER book logo"
+          width="56" height="56"
+          decoding="async" fetchpriority="high"
