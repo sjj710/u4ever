@@ -25,15 +25,26 @@
       --shadow:0 20px 60px rgba(0,0,0,.35); --radius:24px; --maxw: 900px;
     }
 
-    /* Custom display font for the H1 */
-    @font-face{
-      font-family: "U4EVER Display";
-      src: url("/assets/u4ever-display.woff2") format("woff2"),
-           url("/assets/u4ever-display.ttf") format("truetype");
-      font-weight: 400 800;
-      font-style: normal;
-      font-display: swap;
-    }
+/* Use EXACT file names you uploaded (case-sensitive) */
+@font-face{
+  font-family: "U4EVER Display";
+  src: url("/assets/u4ever-display.woff2?v=1") format("woff2"),
+       url("/assets/u4ever-display.ttf?v=1") format("truetype");
+  font-weight: 100 900;   /* cover all weights */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Force the H1 to use the font */
+h1{
+  margin:0;
+  font-family: "U4EVER Display", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-weight: 700;  /* try 400 if your font has only regular */
+  font-size: clamp(30px, 6.2vw, 46px);
+  line-height: 1.08;
+  letter-spacing: .3px;
+}
+
 
     *{box-sizing:border-box} html,body{height:100%}
     body{
