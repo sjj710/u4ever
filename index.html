@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>U4EVER — Coming Soon</title>
 
-  <!-- SEO / Social -->
   <meta name="description" content="In the end, all that’s left are stories. We make sure they last forever." />
   <meta property="og:title" content="U4EVER — Coming Soon" />
   <meta property="og:description" content="In the end, all that’s left are stories. We make sure they last forever." />
@@ -25,7 +24,7 @@
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
       display:grid; place-items:center;
 
-      /* Calm sunset wallpaper */
+      /* Calm sky/sunset wallpaper */
       background:
         radial-gradient(1200px 800px at 20% 12%, rgba(255,170,120,.35), transparent 45%),
         radial-gradient(1100px 700px at 78% 88%, rgba(134,93,210,.26), transparent 48%),
@@ -56,26 +55,28 @@
 
     header{display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-bottom:6px}
 
-    /* DARK logo box so the mark pops */
+    /* WHITE logo box so the logo stands out on blue/pink wallpaper */
     .logoBox{
       position: relative;
-      width:70px; height:70px; border-radius:16px;
+      width:72px; height:72px; border-radius:16px;
       display:grid; place-items:center;
-      background:#0a0a0f; /* near-black */
-      border:1px solid rgba(0,0,0,.9);
-      box-shadow: 0 10px 24px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.06);
+      background:#ffffff;                            /* solid white */
+      border:1px solid rgba(0,0,0,.18);              /* subtle edge */
+      box-shadow:
+        0 10px 26px rgba(0,0,0,.25),                 /* lift */
+        inset 0 0 0 1px rgba(255,255,255,.6);        /* inner line */
       animation: float 6s ease-in-out infinite;
     }
     .logoBox::after{
       content:""; position:absolute; inset:0; border-radius:16px;
-      box-shadow: 0 0 0 1.5px rgba(231,194,101,.35);
+      box-shadow: 0 0 0 1.5px rgba(231,194,101,.28); /* soft gold rim */
       pointer-events:none;
     }
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
     .logoImg{
-      width:54px; height:auto; display:none;
-      filter: contrast(1.12) saturate(1.05) drop-shadow(0 2px 6px rgba(0,0,0,.35));
+      width:56px; height:auto; display:none;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,.12)) contrast(1.05) saturate(1.04);
     }
     .logoMark{width:30px;height:30px;display:block;background:
       radial-gradient(circle at 35% 50%, var(--accent) 0 3px, transparent 3px),
@@ -88,18 +89,7 @@
     h1{margin:0;font-size:clamp(30px,6.2vw,46px);line-height:1.08;letter-spacing:.3px}
     .tagline{margin-top:10px;font-size:clamp(16px,2.4vw,20px);color:var(--muted);opacity:0;transition:opacity .6s ease}
 
-    .badge{
-      display:inline-flex; align-items:center; gap:8px;
-      margin-top:12px;
-      padding:8px 12px; border-radius:999px;
-      background:linear-gradient(180deg,#f3d991,#e7c265);
-      color:#3c2f09; font-weight:700; font-size:13px; letter-spacing:.2px;
-      box-shadow:0 6px 16px rgba(231,194,101,.35);
-    }
-    .badge svg{opacity:.85}
-
-    .cta-row{display:flex;flex-wrap:wrap;gap:12px; margin-top:clamp(14px,2.6vw,24px)}
-
+    .cta-row{display:flex;flex-wrap:wrap;gap:8px; margin-top:clamp(14px,2.6vw,24px)}
     .btn{
       --btn-bg:#ffffff14; --btn-brd:#ffffff30;
       padding:12px 18px;border-radius:999px;border:1px solid var(--btn-brd);
@@ -110,7 +100,7 @@
     .btn:hover{transform:translateY(-1px);border-color:#ffffff66}
     .btn.primary{--btn-bg:linear-gradient(180deg,#f3d991,#e7c265); --btn-brd:#e7c265; color:#3c2f09; box-shadow:0 10px 22px rgba(231,194,101,.35)}
 
-    /* Email form styling */
+    /* Waitlist form */
     form.waitlist{display:flex;flex-wrap:wrap;gap:8px}
     .input{
       padding:12px 14px; border-radius:999px; border:1px solid var(--border);
@@ -142,7 +132,6 @@
     <section class="card" aria-label="Coming soon">
       <header>
         <div class="logoBox" aria-hidden="true">
-          <!-- Uses your real logo if present -->
           <img
             class="logoImg"
             src="/assets/u4ever-logo.png"
@@ -154,19 +143,13 @@
         <div>
           <h1>U4EVER</h1>
           <div class="tagline" id="tagline">In the end, all that’s left are stories. We make sure they last forever.</div>
-          <span class="badge" aria-label="Founding Member waitlist">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2l2.5 6.5L21 9l-5 4 1.5 7L12 16l-5.5 4L8 13 3 9l6.5-.5L12 2z"/></svg>
-            Founding Member — Early Waitlist
-          </span>
         </div>
       </header>
 
-      <!-- WAITLIST (Formspree-ready) -->
       <div class="cta-row">
         <form class="waitlist" id="waitlist" aria-label="Join the waitlist">
           <label for="email" class="sr-only">Email address</label>
           <input id="email" name="email" type="email" class="input" placeholder="you@example.com" required />
-          <!-- Honeypot for bots -->
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
           <button class="btn primary" type="submit">
             Join the waitlist
@@ -191,7 +174,7 @@
   </main>
 
   <script>
-    // Smooth tagline rotation (subtle)
+    // Smooth tagline rotation
     const tagline = document.getElementById('tagline');
     const phrases = [
       "In the end, all that’s left are stories. We make sure they last forever.",
@@ -218,8 +201,8 @@
       if(img.complete && img.naturalWidth){ showImage(); }
     })();
 
-    // ===== Waitlist (Formspree-ready with fallback) =====
-    const FORM_ENDPOINT = "https://formspree.io/f/mzzvqagr"; // <-- paste your Formspree endpoint here, e.g. "https://formspree.io/f/abcd1234"
+    // Waitlist (Formspree-ready with fallback)
+    const FORM_ENDPOINT = ""; // e.g. "https://formspree.io/f/xxxxxxx"
     const form = document.getElementById('waitlist');
     const ack = document.getElementById('ack');
     const err = document.getElementById('err');
@@ -229,7 +212,6 @@
       const email = document.getElementById('email').value.trim();
       if(!email) return;
 
-      // If no endpoint yet, fallback to mailto
       if(!FORM_ENDPOINT){
         window.location.href = `mailto:admin@u4ever.com?subject=U4EVER%20Waitlist&body=${encodeURIComponent(email)}`;
         return;
@@ -237,28 +219,17 @@
 
       try{
         const fd = new FormData(form);
-        const res = await fetch(FORM_ENDPOINT, {
-          method: "POST",
-          headers: { "Accept": "application/json" },
-          body: fd
-        });
+        const res = await fetch(FORM_ENDPOINT, { method:"POST", headers:{ "Accept":"application/json" }, body:fd });
         if(res.ok){
-          form.reset();
-          form.style.display = 'none';
-          ack.style.display = 'block';
+          form.reset(); form.style.display='none'; ack.style.display='block';
           localStorage.setItem('u4ever_waitlisted','1');
-        }else{
-          err.style.display = 'block';
-        }
-      }catch(_){
-        err.style.display = 'block';
-      }
+        }else{ err.style.display='block'; }
+      }catch(_){ err.style.display='block'; }
     });
 
-    // Persist success across refresh
-    if(localStorage.getItem('u4ever_waitlisted') === '1'){
-      document.getElementById('waitlist').style.display = 'none';
-      document.getElementById('ack').style.display = 'block';
+    if(localStorage.getItem('u4ever_waitlisted')==='1'){
+      document.getElementById('waitlist').style.display='none';
+      document.getElementById('ack').style.display='block';
     }
   </script>
 </body>
