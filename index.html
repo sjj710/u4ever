@@ -16,21 +16,26 @@
   <link rel="icon" href="/favicon.ico" />
 
   <!-- Preload custom headline font (safe if missing) -->
-  <link rel="preload" as="font" type="font/woff2" href="/assets/u4ever-display.woff2?v=2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/u4ever-display.woff2?v=3" crossorigin>
 
   <style>
     :root{
       --text:#f7f7fb; --muted:#cfd2e6; --accent:#e7c265;
       --card:rgba(255,255,255,.08); --border:rgba(255,255,255,.18);
       --shadow:0 20px 60px rgba(0,0,0,.35); --radius:24px; --maxw: 900px;
+
+      /* === Change this to adjust the floating tile color === */
+      --tile-bg:#F5E7D3;               /* light tan */
+      --tile-border:rgba(140,110,70,.22);
+      --tile-rim:rgba(216,179,112,.35); /* warm gold rim */
     }
 
-    /* Custom display font for the H1 (tries woff2 then ttf) */
+    /* Custom display font for the H1 */
     @font-face{
       font-family: "U4EVER Display";
       src:
-        url("/assets/u4ever-display.woff2?v=2") format("woff2"),
-        url("/assets/u4ever-display.ttf?v=2") format("truetype");
+        url("/assets/u4ever-display.woff2?v=3") format("woff2"),
+        url("/assets/u4ever-display.ttf?v=3") format("truetype");
       font-weight: 100 900;
       font-style: normal;
       font-display: swap;
@@ -73,31 +78,30 @@
 
     header{display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-bottom:6px}
 
-    /* White logo tile so the mark pops */
-   /* BEFORE */
-.logoBox{
-  /* ... */
-  background:#fff;             /* <-- change this */
-  border:1px solid rgba(0,0,0,.10);
-  box-shadow: 0 10px 22px rgba(0,0,0,.22),
-              inset 0 0 0 1px rgba(255,255,255,.80);
-}
-/* AFTER (light tan tile) */
-.logoBox{
-  /* ... */
-  background:#F5E7D3;          /* light tan */
-  border:1px solid rgba(140,110,70,.20);   /* warmer edge (optional) */
-  box-shadow: 0 10px 22px rgba(0,0,0,.20),
-              inset 0 0 0 1px rgba(255,255,255,.65);
-}
-.logoBox::after{
-  box-shadow: 0 0 0 1.5px rgba(206,164,92,.35); /* warmer gold rim */
-}
+    /* Floating logo tile (light tan) */
+    .logoBox{
+      position: relative;
+      width:72px; height:72px; border-radius:16px;
+      display:grid; place-items:center;
+      background:var(--tile-bg);
+      border:1px solid var(--tile-border);
+      box-shadow:
+        0 10px 22px rgba(0,0,0,.22),
+        inset 0 0 0 1px rgba(255,255,255,.75);
+      animation: float 6s ease-in-out infinite;
+    }
+    .logoBox::after{
+      content:""; position:absolute; inset:0; border-radius:16px;
+      box-shadow: 0 0 0 1.5px var(--tile-rim);
+      pointer-events:none;
+    }
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
-    .logoImg{ width:56px; height:auto; display:none; filter: drop-shadow(0 1px 1px rgba(0,0,0,.12)) contrast(1.05) saturate(1.04); }
-    .logoMark{
-      width:30px;height:30px;display:block;background:
+    .logoImg{
+      width:56px; height:auto; display:none;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,.12)) contrast(1.05) saturate(1.04);
+    }
+    .logoMark{width:30px;height:30px;display:block;background:
       radial-gradient(circle at 35% 50%, var(--accent) 0 3px, transparent 3px),
       radial-gradient(circle at 65% 50%, var(--accent) 0 3px, transparent 3px);
       mask:
@@ -128,7 +132,7 @@
     .btn:hover{transform:translateY(-1px);border-color:#ffffff66}
     .btn.primary{--btn-bg:linear-gradient(180deg,#f3d991,#e7c265); --btn-brd:#e7c265; color:#3c2f09; box-shadow:0 10px 22px rgba(231,194,101,.35)}
 
-    /* SR-only helper for accessible labels */
+    /* Screen-reader-only helper */
     .sr-only{
       position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;
       overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;
@@ -169,10 +173,12 @@
     <section class="card" aria-label="Coming soon">
       <header>
         <div class="logoBox" aria-hidden="true">
-          <!-- Tries multiple logo paths/names automatically -->
-          <img id="logo" class="logoImg" alt="U4EVER logo"
-               src="/assets/u4ever-logo.png"
-               srcset="/assets/u4ever-logo@2x.png 2x" />
+          <img
+            class="logoImg"
+            src="/assets/u4ever-logo.png"
+            srcset="/assets/u4ever-logo@2x.png 2x"
+            alt="U4EVER logo"
+          />
           <span class="logoMark"></span>
         </div>
         <div>
@@ -227,39 +233,13 @@
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Prefer the real logo if available; try alternate names/paths on error
+    // Prefer the real logo if available
     (function(){
-      const img = document.getElementById('logo');
+      const img = document.querySelector('.logoImg');
       const mark = document.querySelector('.logoMark');
-      const candidates = [
-        "/assets/u4ever-logo.png",
-        "/assets/u4ever_logo.png",
-        "/u4ever-logo.png",
-        "/u4ever_logo.png"
-      ];
-      function show(){ img.style.display='block'; mark.style.display='none'; }
-      img.addEventListener('load', show);
-
-      let i = 0;
-      img.addEventListener('error', () => {
-        i++; if(i < candidates.length){ img.src = candidates[i]; }
-      });
-
-      // kick off with first src already set
-      if(img.complete && img.naturalWidth){ show(); }
-    })();
-
-    // Try to load custom font with the Font Loading API as an extra fallback
-    (function(){
-      if (!("fonts" in document)) return;
-      const variants = [
-        "url(/assets/u4ever-display.woff2?v=2) format('woff2')",
-        "url(/assets/u4ever-display.ttf?v=2) format('truetype')"
-      ];
-      variants.forEach(src => {
-        const ff = new FontFace("U4EVER Display", src, { weight: "400" });
-        ff.load().then(f => document.fonts.add(f)).catch(()=>{});
-      });
+      function showImage(){ img.style.display='block'; mark.style.display='none'; }
+      img.addEventListener('load', showImage);
+      if(img.complete && img.naturalWidth){ showImage(); }
     })();
 
     // Waitlist (Formspree-ready with fallback)
